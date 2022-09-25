@@ -5,7 +5,7 @@ xcordsS = [];
 ycords = [];
 var city;
 sol = [];
-let i = 2;
+
 // preload images
   function preload(){
   loadTSP('berlin52.tsp');
@@ -39,25 +39,27 @@ function draw() {
   xcordsN = xcords.map(Number);
   ycordsN = ycords.map(Number);
 
-  traveler.setSpeed(1);
+  traveler.setSpeed(10);
 
-for (i = 2; i<solN.length; i++){
-  for (j = 0; j<50; j++) {
+//create line 
+
+
+for (i = 0; i<solN.length; i++){
+  for (j = 0; j<solN.length; j++){
     traveler.setSpeed(1);
-    traveler.friction = 0.1
-    print(i);
-    traveler.attractionPoint(5,xcords[(solN[i]-1)]*scale,ycords[(solN[i]-1)]*scale);
-    drawSprites();
-    if (traveler.overlapPoint(xcords[(solN[i]-1)]*scale,ycords[(solN[i]-1)]*scale)) {
+    traveler.friction = 0.01;
+    line(xcords[(solN[i]-1)]*scale,ycords[(solN[i]-1)]*scale,xcords[(solN[i+1]-1)]*scale,ycords[(solN[i+1]-1)]*scale);
+    traveler.attractionPoint(1,xcords[(solN[3]-1)]*scale,ycords[(solN[3]-1)]*scale);
+    drawSprite(traveler);
+    if (traveler.overlapPoint(xcords[(solN[4]-1)]*scale,ycords[(solN[4]-1)]*scale)) {
     traveler.setSpeed(0);
-
-    }
   }
 }
-
-drawSprites();
-noLoop();
 }
+}
+
+
+
 
 function showTraveler(){
   const scale = Math.min(windowWidth/(maxX-minX), windowHeight/(maxY-minY));
